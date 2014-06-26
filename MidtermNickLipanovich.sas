@@ -1,0 +1,77 @@
+*Problem 1;
+%macro hw4problem1(data,response,explanatory,interaction,outputname);
+	%let interaction1 = %substr(&interaction,1,1);
+	%let interaction2 = %upcase(&interaction1);
+	%if &interaction2=Y %then
+		%do;
+			proc glm data=&data;
+			class &explanatory;
+			model &response = &explanatory | &explanatory /ss3;
+			output out=&outputname r=res p=yhat;
+			run;
+			quit;
+		%end;
+	%else 
+		%do;
+			proc glm data=&data;
+			class &explanatory;
+			model &response = &explanatory /ss3;
+			output out=&outputname r=res p=yhat;
+			run;
+			quit;
+		%end;
+%mend;
+*Problem 2;
+proc import datafile="D:\Documents and Settings\stsc\My Documents\Downloads\midterm data.xlsx"
+	dbms=excel out=myimport replace;
+run;
+proc print data=myimport;
+run;
+%macro createcell(t,v);
+	data cell&t&v; * & indicates to use the 
+					macro variable value;
+		set myimport;
+		y=tv&t&v; *. tells sas that the macro
+			variable is "a", but the name continues;
+		t=&t;
+		v=&v;
+		if y=. then delete;
+		keep y t v;
+	run;
+	proc print;
+	run;
+%mend;
+%createcell(1,1);
+%createcell(2,1);
+%createcell(1,2);
+%createcell(2,2);
+%macro combine;
+	data all;
+		set %do t=1 %to 2;
+				%do v=1 %to 2;
+					cell&t&v
+				%end;
+			%end;
+			; *<- refers to the end of the set;
+	run;
+	proc sort data=all;
+		by v;
+	run;
+%mend;
+%combine;
+proc print data=all;
+run;
+*Problem 3;
+%macro normality(data,response,explanatory,interaction,outputname);
+	%hw4problem1(&data,&response,&explanatory,&interaction,&outputname);
+	proc univariate normal plot data=&outputname;
+		var res;
+	run;
+	quit;
+%mend;
+*Problem 4;
+%normality(all,y,t v,YeS,residualsyes); 
+*Problem 5;
+%normality(all,y,t v,nO,residualsno);
+*Problem 6;
+%normality(all,y,t,nO,residualsa);
