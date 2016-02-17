@@ -11,8 +11,8 @@ This course covered the following topics:
 * File I/O  
 * Dates  
 * Analysis of Variance (ANOVA) and PROC GLM  
-* Data manipulation, formatting, and sorting  
-* Using ods for document creation  
+* Data Manipulation, Formatting, and Sorting  
+* Using ods for Document Creation  
 * Control and Loops  
 * Arrays  
 * Summarizing Data  
