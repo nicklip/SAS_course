@@ -2,7 +2,7 @@
 
 This is my code from the SAS programming course I took in graduate school. Included is code I wrote for the homework assignments, the midterm, and the final exam. 
 
-A select number of the homework questions/instructions are included as comments in the code. I will be updating this repository with the instructions for all of the assignments and the utlized data files very soon.
+A select number of the homework questions/instructions are included as comments in the code. I will be updating this repository with the instructions for all of the assignments and the utilized data files very soon.
 
 This course covered the following topics:  
 * Data Steps  
